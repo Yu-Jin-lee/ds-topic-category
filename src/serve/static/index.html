@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Navigation</title>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="categories"></div>
+
+<script>
+    // JSON 파일 로드 및 카테고리 표시
+    fetch('depth_data.json')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('categories');
+
+            Object.keys(data).forEach(depth1 => {
+                let dropdown = document.createElement('div');
+                dropdown.className = 'dropdown';
+                let dropbtn = document.createElement('button');
+                dropbtn.textContent = depth1;
+                dropbtn.className = 'dropbtn';
+                let dropdownContent = document.createElement('div');
+                dropdownContent.className = 'dropdown-content';
+
+                data[depth1].forEach(depth2 => {
+                    let link = document.createElement('a');
+                    link.href = '#';
+                    link.textContent = depth2;
+                    dropdownContent.appendChild(link);
+                });
+
+                dropdown.appendChild(dropbtn);
+                dropdown.appendChild(dropdownContent);
+                container.appendChild(dropdown);
+            });
+        })
+        .catch(error => console.error('Error loading the JSON file:', error));
+</script>
+
+</body>
+</html>

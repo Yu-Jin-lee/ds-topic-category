@@ -1,0 +1,12 @@
+.data/
+*.gz
+*.log
+*.out
+*.pkl
+*.txt
+*.json
+*.jsonl
+*.csv
+*.pyc
+*.pt
+*.png
